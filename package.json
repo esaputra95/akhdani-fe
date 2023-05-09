@@ -1,8 +1,7 @@
 {
-    "name": "berry-material-react-free",
+    "name": "report-kasir-desktop",
     "version": "3.3.1",
     "private": true,
-    "homepage": "https://berrydashboard.io/free",
     "dependencies": {
         "@emotion/cache": "^11.9.3",
         "@emotion/react": "^11.9.3",
@@ -31,7 +30,7 @@
         "yup": "^0.32.11"
     },
     "scripts": {
-        "start": "react-scripts start",
+        "start": "set PORT=3006 && react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
