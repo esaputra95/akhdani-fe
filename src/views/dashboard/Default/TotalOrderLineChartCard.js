@@ -18,6 +18,7 @@ import ChartDataYear from './chart-data/total-order-year-line-chart';
 // assets
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { money } from 'utils/moneyFormat';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
@@ -63,7 +64,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL ORDER LINE CHART CARD ||============================== //
 
-const TotalOrderLineChartCard = ({ isLoading }) => {
+const TotalOrderLineChartCard = ({ data, isLoading }) => {
     const theme = useTheme();
 
     const [timeValue, setTimeValue] = useState(false);
@@ -128,11 +129,11 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                     </Typography>
                                                 ) : (
                                                     <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                                        $961
+                                                        {money.format(data * 0.001)} K
                                                     </Typography>
                                                 )}
                                             </Grid>
-                                            <Grid item>
+                                            {/* <Grid item>
                                                 <Avatar
                                                     sx={{
                                                         ...theme.typography.smallAvatar,
@@ -143,7 +144,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                 >
                                                     <ArrowDownwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
                                                 </Avatar>
-                                            </Grid>
+                                            </Grid> */}
                                             <Grid item xs={12}>
                                                 <Typography
                                                     sx={{
@@ -152,7 +153,7 @@ const TotalOrderLineChartCard = ({ isLoading }) => {
                                                         color: theme.palette.primary[200]
                                                     }}
                                                 >
-                                                    Total Order
+                                                    Total Pembelian
                                                 </Typography>
                                             </Grid>
                                         </Grid>

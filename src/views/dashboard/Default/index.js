@@ -11,24 +11,38 @@ import TotalIncomeDarkCard from './TotalIncomeDarkCard';
 import TotalIncomeLightCard from './TotalIncomeLightCard';
 import TotalGrowthBarChart from './TotalGrowthBarChart';
 import { gridSpacing } from 'store/constant';
+import { useFetch } from 'hooks/useFetch';
+import { storeDashboardSale, storeDashboardPurchase } from 'services/endPoint';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
 const Dashboard = () => {
-    const [isLoading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const { useGet: getSale, isLoading: isLoadingSale, data: dataTotalSale } = useFetch();
+    const { useGet: getPurchase, isLoading: isLoadingPurchase, data: dataTotalPurchase } = useFetch();
     useEffect(() => {
-        setLoading(false);
+        getTotalSale();
+        getTotalPurchase();
+        setIsLoading(false);
     }, []);
+
+    const getTotalSale = async () => {
+        await getSale(storeDashboardSale);
+    };
+
+    const getTotalPurchase = async () => {
+        await getPurchase(storeDashboardPurchase);
+    };
 
     return (
         <Grid container spacing={gridSpacing}>
             <Grid item xs={12}>
                 <Grid container spacing={gridSpacing}>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <EarningCard isLoading={isLoading} />
+                        <EarningCard data={dataTotalSale} isLoading={isLoadingSale} />
                     </Grid>
                     <Grid item lg={4} md={6} sm={6} xs={12}>
-                        <TotalOrderLineChartCard isLoading={isLoading} />
+                        <TotalOrderLineChartCard data={dataTotalPurchase} isLoading={isLoadingPurchase} />
                     </Grid>
                     <Grid item lg={4} md={12} sm={12} xs={12}>
                         <Grid container spacing={gridSpacing}>

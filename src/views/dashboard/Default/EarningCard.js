@@ -17,6 +17,7 @@ import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
 import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
+import { money } from 'utils/moneyFormat';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.dark,
@@ -56,7 +57,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
 
-const EarningCard = ({ isLoading }) => {
+const EarningCard = ({ isLoading, data }) => {
     const theme = useTheme();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -144,10 +145,10 @@ const EarningCard = ({ isLoading }) => {
                                 <Grid container alignItems="center">
                                     <Grid item>
                                         <Typography sx={{ fontSize: '2.125rem', fontWeight: 500, mr: 1, mt: 1.75, mb: 0.75 }}>
-                                            $500.00
+                                            {money.format(data * 0.001)} K
                                         </Typography>
                                     </Grid>
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <Avatar
                                             sx={{
                                                 cursor: 'pointer',
@@ -158,7 +159,7 @@ const EarningCard = ({ isLoading }) => {
                                         >
                                             <ArrowUpwardIcon fontSize="inherit" sx={{ transform: 'rotate3d(1, 1, 1, 45deg)' }} />
                                         </Avatar>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                             </Grid>
                             <Grid item sx={{ mb: 1.25 }}>
@@ -169,7 +170,7 @@ const EarningCard = ({ isLoading }) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Total Earning
+                                    Total Penjualan
                                 </Typography>
                             </Grid>
                         </Grid>

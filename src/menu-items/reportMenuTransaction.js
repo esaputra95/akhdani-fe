@@ -52,7 +52,7 @@ const subMenuMaster = [
         id: 'report-supplier',
         title: 'Supplier',
         type: 'item',
-        url: '/report/master/report-suplier',
+        url: '/report/master/report-supplier',
         breadcrumbs: false
     }
 ];
