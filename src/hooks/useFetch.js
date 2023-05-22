@@ -7,7 +7,7 @@ export const useFetch = () => {
     const [sort, setSort] = useState('asc');
     const [sortField, setSortField] = useState('id');
     const [queryForm, setQueryForm] = useState({});
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const [errorMessage, setErrorMessage] = useState(false);
     const [totalData, setTotalData] = useState(0);

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import { api } from 'services';
+import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Alert, Button, Card, Dialog, DialogTitle } from '@mui/material';
 import { IconCirclePlus } from '@tabler/icons';
@@ -15,6 +16,7 @@ import { storeServerDummy } from 'dummy/master/storeServerDummy';
 import { storeServerGet, storeServerPost, storeServerDelete, storeServerGetOne, storeServerPut } from 'services/endPoint';
 import AlertDialog from 'ui-component/atoms/confirmDialog';
 import { useCallback } from 'react';
+import { storeSchema } from 'utils/storeSchema';
 
 const MasterStoreServer = () => {
     const [open, setOpen] = useState(false);
@@ -82,7 +84,7 @@ const MasterStoreServer = () => {
     };
 
     const handleChangeForm = (e) => {
-        setFormStoreServer({ ...formStoreServer, [e.target.name]: e.target.value });
+        formik.setValues({ ...formik.values, [e.target.name]: e.target.value });
     };
 
     const handleOnAction = useCallback(async () => {
@@ -106,7 +108,16 @@ const MasterStoreServer = () => {
                 resetAlert();
             }
         }
-    }, [idUpdate, formStoreServer, open]);
+    }, [idUpdate, formStoreServer]);
+
+    const storeFormik = useFormik({
+        initialValues: {
+            ...storeServerDummy
+        },
+        onSubmit: () => handleOnAction,
+        validationSchema: () => storeSchema,
+        validateOnChange: false
+    });
 
     const handleConfirmDelete = useCallback(
         async (status) => {
@@ -213,6 +224,7 @@ const MasterStoreServer = () => {
                     Tambah Data Toko
                 </DialogTitle>
                 <FormStoreServer
+                    storeFormik={storeFormik}
                     formStoreServer={formStoreServer}
                     handleChangeForm={handleChangeForm}
                     handleOnAction={handleOnAction}

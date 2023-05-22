@@ -17,8 +17,8 @@ const Logo = () => {
 
     return (
         <Grid style={{ display: 'flex', alignItems: 'center' }}>
-            <img src="./logo.png" alt="Garudakasir" width="40" style={{ marginRight: 4 }} />
-            <Typography variant="h3">GARUDAKASIR</Typography>
+            {/* <img src="./logo.png" alt="Garudakasir" width="40" style={{ marginRight: 4 }} /> */}
+            <Typography variant="h3">GET STARTED</Typography>
         </Grid>
         /**
          * if you want to use image instead of svg uncomment following, and comment out <svg> element.
