@@ -3,7 +3,7 @@ import { Autocomplete, Box, Button, Dialog, DialogContent, DialogTitle, Grid, Sk
 import MainCard from 'ui-component/cards/MainCard';
 import { useFetch } from 'hooks/useFetch';
 import { useEffect } from 'react';
-import { storeBrandSelect, storeReportItem, storeTypeSelect, storeWarehouse } from 'services/endPoint';
+import { storeBrandSelect, storeReportItem, storeTypeSelect, storeWarehouseSelect } from 'services/endPoint';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { IconFileEuro } from '@tabler/icons';
@@ -41,7 +41,7 @@ const ReportMasterItem = () => {
 
     const getDataWarehouse = useCallback(
         async (query) => {
-            getWarehouse(storeWarehouse, query);
+            getWarehouse(storeWarehouseSelect, query);
         },
         [queryFormWarehouse]
     );

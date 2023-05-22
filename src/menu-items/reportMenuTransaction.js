@@ -67,24 +67,24 @@ const subMenuPurchase = [
         breadcrumbs: false
     },
     {
-        id: 'report-purchase',
+        id: 'report-purchases',
         title: 'Pembelian',
         type: 'item',
-        url: '/report/purchase/report-purchase',
+        url: '/report/purchase/report-purchases',
         breadcrumbs: false
     },
     {
-        id: 'report-purchase-return',
+        id: 'report-purchase-returns',
         title: 'Retur Pembelian',
         type: 'item',
-        url: '/report/purchase/report-purchase-return',
+        url: '/report/purchase/report-purchase-returns',
         breadcrumbs: false
     },
     {
-        id: 'report-purchase-peritem',
+        id: 'report-purchase-peritems',
         title: 'Pembelian Peritem',
         type: 'item',
-        url: '/report/purchase/report-purchase-peritem',
+        url: '/report/purchase/report-purchase-peritems',
         breadcrumbs: false
     }
 ];
@@ -113,38 +113,38 @@ const subMenuSale = [
         breadcrumbs: false
     },
     {
-        id: 'report-sales-peritem',
+        id: 'report-sale-peritems',
         title: 'Penjualan Peritem',
         type: 'item',
-        url: '/report/sale/report-sales-peritem',
+        url: '/report/sale/report-sale-peritems',
         breadcrumbs: false
     },
     {
-        id: 'report-sales-cashier',
+        id: 'report-sale-cashiers',
         title: 'Penjualan Kasir',
         type: 'item',
-        url: '/report/sale/report-sales-cashier',
+        url: '/report/sale/report-sale-cashiers',
         breadcrumbs: false
     },
     {
-        id: 'report-sales-cashier-peritem',
+        id: 'report-sale-cashier-peritems',
         title: 'Penjualan Kasir Peritem',
         type: 'item',
-        url: '/report/sale/report-sales-ashier-peritem',
+        url: '/report/sale/report-sale-cashier-peritems',
         breadcrumbs: false
     },
     {
-        id: 'report-sales-return',
+        id: 'report-sale-returns',
         title: 'Retur Penjualan',
         type: 'item',
-        url: '/report/sale/report-sales-return',
+        url: '/report/sale/report-sale-returns',
         breadcrumbs: false
     },
     {
-        id: 'report-sales-return-peritem',
+        id: 'report-sale-return-peritems',
         title: 'Retur Penjualan Peritem ',
         type: 'item',
-        url: '/report/sale/report-sales-return-peritem',
+        url: '/report/sale/report-sale-return-peritems',
         breadcrumbs: false
     },
     {

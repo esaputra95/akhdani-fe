@@ -1,23 +1,35 @@
 import { Link } from 'react-router-dom';
-
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
-
 // project imports
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
 import AuthLogin from '../auth-forms/AuthLogin';
 import Logo from 'ui-component/Logo';
 import AuthFooter from 'ui-component/cards/AuthFooter';
-
-// assets
-
-// ================================|| AUTH3 - LOGIN ||================================ //
+import { useFetch } from 'hooks/useFetch';
+import { useState } from 'react';
+import { storeLogin } from 'services/endPoint';
+import { api } from 'services';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+
+    const handleLogin = async (form) => {
+        try {
+            const data = await api.post(storeLogin, { ...form });
+            sessionStorage.setItem('token', data.data.token);
+            navigate('/dashboard');
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     return (
         <AuthWrapper1>
@@ -28,9 +40,7 @@ const Login = () => {
                             <AuthCardWrapper>
                                 <Grid container spacing={2} alignItems="center" justifyContent="center">
                                     <Grid item sx={{ mb: 3 }}>
-                                        <Link to="#">
-                                            <Logo />
-                                        </Link>
+                                        <Logo />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid
@@ -46,21 +56,21 @@ const Login = () => {
                                                         gutterBottom
                                                         variant={matchDownSM ? 'h3' : 'h2'}
                                                     >
-                                                        Hi, Welcome Back
+                                                        Hi, Selamat Datang
                                                     </Typography>
                                                     <Typography
                                                         variant="caption"
                                                         fontSize="16px"
                                                         textAlign={matchDownSM ? 'center' : 'inherit'}
                                                     >
-                                                        Enter your credentials to continue
+                                                        Masuk untuk melihat laporan Toko
                                                     </Typography>
                                                 </Stack>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <AuthLogin />
+                                        <AuthLogin handleLogin={handleLogin} isLoading={isLoading} />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
