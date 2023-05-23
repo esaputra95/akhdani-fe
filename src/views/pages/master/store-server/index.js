@@ -20,7 +20,6 @@ import { storeSchema } from 'utils/storeSchema';
 
 const MasterStoreServer = () => {
     const [open, setOpen] = useState(false);
-    const [formStoreServer, setFormStoreServer] = useState({ ...storeServerDummy });
     const [alert, setAlert] = useState({ severity: '', status: false, message: '' });
     const [idDelete, setIdDelete] = useState(false);
     const [idUpdate, setIdUpdate] = useState(false);
@@ -79,43 +78,49 @@ const MasterStoreServer = () => {
         setOpen(false);
         if (idUpdate) {
             setIdUpdate(false);
-            setFormStoreServer({ ...storeServerDummy });
+            storeFormik.setValues({ ...storeServerDummy });
         }
     };
 
     const handleChangeForm = (e) => {
-        formik.setValues({ ...formik.values, [e.target.name]: e.target.value });
+        storeFormik.setValues({ ...storeFormik.values, [e.target.name]: e.target.value });
     };
 
-    const handleOnAction = useCallback(async () => {
-        if (!idUpdate) {
-            delete formStoreServer.id;
-            const fetch = await postStoreServer(storeServerPost, { ...formStoreServer });
-            if (fetch) {
-                getData(storeServerGet);
-                setOpen(false);
-                setFormStoreServer({ ...storeServerDummy });
-                setAlert({ severity: 'success', status: true, message: 'Data Toko berhasil ditambah' });
-                resetAlert();
+    const handleOnAction = useCallback(
+        async (value) => {
+            if (!idUpdate) {
+                delete value.id;
+                const fetch = await postStoreServer(storeServerPost, { ...value });
+                if (fetch) {
+                    getData(storeServerGet);
+                    setOpen(false);
+                    storeFormik.setValues({ ...storeServerDummy });
+                    setAlert({ severity: 'success', status: true, message: 'Data Toko berhasil ditambah' });
+                    resetAlert();
+                }
+            } else {
+                const fetch = await putStoreServer(storeServerPut, idUpdate, { ...value });
+                if (fetch) {
+                    getData(storeServerGet);
+                    setOpen(false);
+                    storeFormik.setValues({ ...storeServerDummy });
+                    setAlert({ severity: 'success', status: true, message: 'Data Toko berhasil diubah' });
+                    resetAlert();
+                }
             }
-        } else {
-            const fetch = await putStoreServer(storeServerPut, idUpdate, { ...formStoreServer });
-            if (fetch) {
-                getData(storeServerGet);
-                setOpen(false);
-                setFormStoreServer({ ...storeServerDummy });
-                setAlert({ severity: 'success', status: true, message: 'Data Toko berhasil diubah' });
-                resetAlert();
-            }
-        }
-    }, [idUpdate, formStoreServer]);
+        },
+        [idUpdate]
+    );
 
     const storeFormik = useFormik({
         initialValues: {
             ...storeServerDummy
         },
-        onSubmit: () => handleOnAction,
-        validationSchema: () => storeSchema,
+        onSubmit: async (value, helper) => {
+            await handleOnAction(value);
+            helper.resetForm({ ...storeServerDummy });
+        },
+        validationSchema: storeSchema,
         validateOnChange: false
     });
 
@@ -145,7 +150,7 @@ const MasterStoreServer = () => {
         try {
             setIdUpdate(id);
             const data = await getOneStoreServer(storeServerGetOne, id);
-            setFormStoreServer({ ...data });
+            storeFormik.setValues({ ...data });
             setOpen(true);
         } catch (error) {}
     };
@@ -225,7 +230,6 @@ const MasterStoreServer = () => {
                 </DialogTitle>
                 <FormStoreServer
                     storeFormik={storeFormik}
-                    formStoreServer={formStoreServer}
                     handleChangeForm={handleChangeForm}
                     handleOnAction={handleOnAction}
                     handleClose={handleClose}

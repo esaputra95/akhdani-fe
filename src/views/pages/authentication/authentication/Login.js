@@ -23,8 +23,8 @@ const Login = () => {
 
     const handleLogin = async (form) => {
         try {
-            // const data = await api.post(storeLogin, { ...form });
-            // sessionStorage.setItem('token', data.data.token);
+            const data = await api.post(storeLogin, { ...form });
+            sessionStorage.setItem('token', data.data.token);
             navigate('/dashboard');
         } catch (error) {
             console.log(error);
