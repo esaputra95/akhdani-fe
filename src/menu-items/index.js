@@ -1,12 +1,11 @@
+import ActivityMenu from './activity';
 import dashboard from './dashboard';
-import reportMenuTransaction from './reportMenuTransaction';
-// import other from './other';
 import masterMenu from './master';
 
 // ======================s========|| MENU ITEMS ||============================== //
 
 const menuItems = {
-    items: [dashboard, masterMenu, reportMenuTransaction]
+    items: [dashboard, masterMenu, ActivityMenu]
 };
 
 export default menuItems;

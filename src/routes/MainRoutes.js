@@ -8,17 +8,13 @@ import MidleWareAuth from './MidlewareAuth';
 
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
-
 // MASTER
-const MasterStoreServer = Loadable(lazy(() => import('views/pages/master/store-server/index')));
-// REPORT MASTER
-const ReportMasterItem = Loadable(lazy(() => import('views/pages/report/master/item/index')));
-// REPORT PURCHASE
-const ReportPurchases = Loadable(lazy(() => import('views/pages/report/purchase/purchases')));
-// REPORT SALES
-const ReportSales = Loadable(lazy(() => import('views/pages/report/sale/sales')));
+const MasterUser = Loadable(lazy(() => import('views/pages/master/users')));
+const MasterCity = Loadable(lazy(() => import('views/pages/master/city')));
+const MasterPocketMonet = Loadable(lazy(() => import('views/pages/master/pocket-money')));
 
-// ==============================|| MAIN ROUTING ||============================== //
+// AKTIVITY
+const Perdin = Loadable(lazy(() => import('views/pages/activity/perdins')));
 
 const MainRoutes = {
     path: '/',
@@ -41,34 +37,34 @@ const MainRoutes = {
             )
         },
         {
-            path: 'master/store-server',
+            path: 'master/users',
             element: (
                 <MidleWareAuth>
-                    <MasterStoreServer />
+                    <MasterUser />
                 </MidleWareAuth>
             )
         },
         {
-            path: 'report/master/report-item',
+            path: 'master/citys',
             element: (
                 <MidleWareAuth>
-                    <ReportMasterItem />
+                    <MasterCity />
                 </MidleWareAuth>
             )
         },
         {
-            path: 'report/purchase/report-purchases',
+            path: 'master/pocket-moneys',
             element: (
                 <MidleWareAuth>
-                    <ReportPurchases />
+                    <MasterPocketMonet />
                 </MidleWareAuth>
             )
         },
         {
-            path: 'report/sale/report-sales',
+            path: 'activity/perdin',
             element: (
                 <MidleWareAuth>
-                    <ReportSales />
+                    <Perdin />
                 </MidleWareAuth>
             )
         }

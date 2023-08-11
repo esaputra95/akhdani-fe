@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { api } from 'services';
 
@@ -25,10 +26,9 @@ export const useFetch = () => {
             setData([]);
             setLoading(true);
             const model = await api.get(url, { params: { ...query } });
-            console.log('data : ', model.data.data.model);
             setLoading(false);
-            setData(model.data.data.model);
-            setTotalData(model?.data?.data?.meta?.total ?? 0);
+            setData(model.data.data);
+            setTotalData(model?.data?.total ?? 0);
             return 1;
         } catch (error) {
             setLoading(false);
@@ -45,7 +45,7 @@ export const useFetch = () => {
             return 1;
         } catch (error) {
             setLoading(false);
-            setErrorMessage(error.message ?? `${error}`);
+            setErrorMessage(error.response?.data?.message ?? `${error}`);
             return 0;
         }
     };
@@ -67,7 +67,7 @@ export const useFetch = () => {
             setLoading(true);
             const model = await api.get(`${url}/${id}`);
             setLoading(false);
-            return model.data.data.model;
+            return model.data.data;
         } catch (error) {
             setLoading(false);
             setErrorMessage(error.message ?? `${error}`);

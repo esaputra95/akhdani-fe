@@ -7,6 +7,7 @@ import { Divider, List, Typography } from '@mui/material';
 // project imports
 import NavItem from '../NavItem';
 import NavCollapse from '../NavCollapse';
+import { HasAccess } from '@permify/react-role';
 
 // ==============================|| SIDEBAR MENU LIST GROUP ||============================== //
 
@@ -17,9 +18,17 @@ const NavGroup = ({ item }) => {
     const items = item.children?.map((menu) => {
         switch (menu.type) {
             case 'collapse':
-                return <NavCollapse key={menu.id} menu={menu} level={1} />;
+                return (
+                    <HasAccess key={menu.id} roles={[menu.url]}>
+                        <NavCollapse menu={menu} level={1} />
+                    </HasAccess>
+                );
             case 'item':
-                return <NavItem key={menu.id} item={menu} level={1} />;
+                return (
+                    <HasAccess key={menu.id} roles={[menu.url]}>
+                        <NavItem item={menu} level={1} />
+                    </HasAccess>
+                );
             default:
                 return (
                     <Typography key={menu.id} variant="h6" color="error" align="center">

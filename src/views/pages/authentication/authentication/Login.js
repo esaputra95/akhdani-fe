@@ -8,15 +8,16 @@ import AuthCardWrapper from '../AuthCardWrapper';
 import AuthLogin from '../auth-forms/AuthLogin';
 import Logo from 'ui-component/Logo';
 import AuthFooter from 'ui-component/cards/AuthFooter';
-import { useFetch } from 'hooks/useFetch';
+import jwt_decode from 'jwt-decode';
 import { useState } from 'react';
 import { storeLogin } from 'services/endPoint';
 import { api } from 'services';
 import { useNavigate } from 'react-router-dom';
+import { usePermify } from '@permify/react-role';
 
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
-
+    const { setUser } = usePermify();
     const navigate = useNavigate();
     const theme = useTheme();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -25,6 +26,25 @@ const Login = () => {
         try {
             const data = await api.post(storeLogin, { ...form });
             sessionStorage.setItem('token', data.data.token);
+            api.defaults.headers = {
+                'X-Custom-Header': 'foobar',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${data?.data?.token ?? ''}`
+            };
+            let token = data?.data?.token ?? '';
+            let decodedToken = jwt_decode(token);
+            if (decodedToken.levelAccess === 'Admin') {
+                setUser({
+                    id: '1',
+                    roles: ['/master/users', '/master/pocket-moneys', '/master/citys', '/activity/perdin', '/dashboard', 'approve']
+                });
+            } else {
+                setUser({
+                    id: '2',
+                    roles: ['/activity/perdin', '/dashboard']
+                });
+            }
+
             navigate('/dashboard');
         } catch (error) {
             console.log(error);
@@ -58,13 +78,6 @@ const Login = () => {
                                                     >
                                                         Hi, Selamat Datang
                                                     </Typography>
-                                                    <Typography
-                                                        variant="caption"
-                                                        fontSize="16px"
-                                                        textAlign={matchDownSM ? 'center' : 'inherit'}
-                                                    >
-                                                        Masuk untuk melihat laporan Toko
-                                                    </Typography>
                                                 </Stack>
                                             </Grid>
                                         </Grid>
@@ -74,18 +87,6 @@ const Login = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Divider />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <Grid item container direction="column" alignItems="center" xs={12}>
-                                            <Typography
-                                                component={Link}
-                                                to="/pages/register/register3"
-                                                variant="subtitle1"
-                                                sx={{ textDecoration: 'none' }}
-                                            >
-                                                Don&apos;t have an account?
-                                            </Typography>
-                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </AuthCardWrapper>
