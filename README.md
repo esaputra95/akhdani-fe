@@ -5,4 +5,4 @@ Jika ada yang kurang mengerti bisa menghubungi develover pada email `ekosaputra.
 ## 2. Instalasi Aplikasi
 1. Clone project
 3. Lakukan perintah `yarn install` atau `npm install`
-4. Lakukan perintah `yarn start` atau `yarn dev` untuk menjalakan aplikasi
+4. Lakukan perintah `yarn start` untuk menjalakan aplikasi
